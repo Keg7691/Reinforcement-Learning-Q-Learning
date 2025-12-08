@@ -70,26 +70,41 @@ class CliffWalkingAgent:
     # ---------------------------------------------------------
 
     def get_action(self, state: int) -> int:
-        """Epsilon-Greedy Aktionswahl."""
-        if np.random.random() < self.epsilon:
-            # Verwende die Trainingsumgebung zum Sample, damit kein Render-Fenster erzeugt wird
-            return self.train_env.action_space.sample()
-        return int(np.argmax(self.q_values[state]))
+        """ Epsilon-Greedy Aktionswahl.
+        Args:
+            state (int): aktueller Zustand 
+        Returns:
+            int: gewählte Aktion
+        Parameters:
+            epsilon (float): Wahrscheinlichkeit für Zufallsaktion
+            train_env.action_space.sample(): Methode zur Auswahl einer zufälligen Aktion aus dem Aktionsraum der Umgebung
+            int(np.argmax(self.q_values[state])): Methode zur Auswahl der Aktion mit dem höchsten Q-Wert für den gegebenen Zustand
+        """
+        pass
 
     # ---------------------------------------------------------
 
     def update(self, state, action, reward, terminated, next_state):
-        """
-        Q-Learning Update mit Bellman-Gleichung.
-        """
-        future_q = 0 if terminated else np.max(self.q_values[next_state])
+            """
+            Q-Learning Update mit Bellman-Gleichung.
+                Args:
+                    state (int): aktueller Zustand
+                    action (int): ausgeführte Aktion
+                    reward (float): erhaltene Belohnung
+                    terminated (bool): ob die Episode beendet ist
+                    next_state (int): nächster Zustand
 
-        target = reward + self.discount_factor * future_q
-        temporal_diff = target - self.q_values[state][action]
+                Parameters:
+                    future_q (float): maximaler zukünftiger Q-Wert für den nächsten Zustand
+                    np.max(self.q_values[next_state]): Methode zur Berechnung des maximalen Q-Werts für den nächsten Zustand
+                    target (float): Zielwert für das Q-Learning Update
+                    temporal_diff (float): temporärer Unterschied zwischen Zielwert und aktuellem Q-Wert
+                    q_values[state][action] (float): aktueller Q-Wert für den gegebenen Zustand und die Aktion
+                    training_error (list): Liste zur Speicherung der Trainingsfehler über die Zeit
 
-        self.q_values[state][action] += self.lr * temporal_diff
-
-        self.training_error.append(temporal_diff)
+                    future_q = 0 if terminated else np.max(self.q_values[next_state])
+            """
+            pass
 
     # ---------------------------------------------------------
 
